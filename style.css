@@ -1,0 +1,87 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+}
+kbd {
+    border: 1px solid red;
+    width: 4em;
+    height: 4em;
+    display: inline-block;
+    text-transform: uppercase;
+    /* 把所有的小写字母变成大写字母 */
+    position: relative;
+}
+kbd > button{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	display: none;
+}
+kbd:hover > button{
+	display: inline-block;
+}
+ body{
+     background:grey  url(./wall.jpg) no-repeat center center ;
+     background-size: cover;
+    /* height:100vh;  
+    100vh就是屏幕的高度  全称：viewport height */
+} 
+main{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+#main{
+    display: inline-block; 
+}
+#main > div:nth-child(2){
+    margin-left: -22px;
+}
+#main > div:nth-child(3){
+    margin-left: -80px;
+}
+.wrapper{
+    background:rgba(255, 255, 255, 0.1) ;
+    border-radius: 20px;
+}
+.key{
+    width: 50px;
+    height: 40px;
+    background: linear-gradient(to bottom, #292929 0%,#111111 100%);
+    border: 1px solid #2C2C2C;
+    border-radius: 6px;
+    color:#C4C4C4;
+    box-shadow:0 0 0 1px #1a1b1c,0 0 0 2px #1f2020, 0 3px 0 2px #080808;
+    /* display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    这三句没用了，没有东西需要居中了
+    */
+    font-size: 16px;
+    font-family: Helveative;
+    position: relative;
+}    
+.row{
+    margin:20px;
+}
+.row .key{
+    margin: 0 10px;
+}
+.key img{
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    left: 2px;
+    bottom: 2px;
+}
+
+.key .text{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}

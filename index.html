@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>我的导航</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header></header>
+    <main >
+        <div class="wrapper" id="main"></div>
+    </main>
+    <footer></footer>
+    <script>
+        //1.初始化数据
+        var hashA = init()
+        var keys = hashA['keys']
+        var hash = hashA['hash']
+        
+        //  参数和标签一起传
+        // function tag(tagName,attributes){
+        //     var element = document.createElement(tagName)
+        //     for(var key in attributes){  //key为 className ,id ,textContent
+        //         element[key] = attributes[key]
+        //     }
+        //     return element
+        // }
+        // 这是引用 var div = tag('div',{className:'row'})
+        
+        //2.生成键盘
+        // 遍历 keys ,生成 kbd标签
+        generateKeyboard(keys,hash)
+
+        //for 循环替换 while
+        // var index = 0
+        // while(index < keys['length']){  // 0 1 2
+        //     var index2 = 0
+        //     while(index2 < row['length']){
+        //         index2 = index2 + 1
+        //     }
+        //     index = index + 1
+        // }
+
+        //3.监听键盘
+        listenToUser(hash)
+        
+
+        //下面是工具函数
+        function getFromLocalStorage(name){
+            return JSON.parse(localStorage.getItem(name) || 'null')
+        }
+        function tag(tagName){
+            return document.createElement(tagName)
+        }
+        function creatSpan(textContent){
+            var span = tag('span')
+            span.textContent = textContent
+            span.className = 'text'
+            return span
+        }
+        function createButton(id){
+            var button = tag('button')
+            button.textContent = '编辑'
+            button.id = id
+            button.onclick = function(xzkjcnxlkcjlk){
+                // xzkjcnxlkcjlk['target'] 用户点击的元素
+                var button2 = xzkjcnxlkcjlk['target']
+                var img2 = button2.previousSibling
+                var key = button2['id']
+                // key = xzkjcnxlkcjlk['target']['id']
+                var x = prompt('给我一个网站')
+                hash[key] = x   //hash改变
+                img2.src = 'http://' + x + '/favicon.ico'
+                img2.onerror = function(xxxx){
+                    xxxx.target.src = '//upload-images.jianshu.io/upload_images/9472283-bb76455210376e66.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'                    
+                }
+                localStorage.setItem('zzz',JSON.stringify(hash))
+            }
+            return button
+        }
+        function createImg(domain){
+            var img = tag('img')
+                if(domain){
+                img.src = 'http://' + domain + '/favicon.ico'
+            }else{
+                img.src = '//upload-images.jianshu.io/upload_images/9472283-bb76455210376e66.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'                    
+            }
+            img.onerror = function(xxxx){
+                xxxx.target.src = '//upload-images.jianshu.io/upload_images/9472283-bb76455210376e66.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'                    
+            }
+            return img
+        }
+        function init(){
+            var keys = {
+                '0': {0:'q',1:'w',2:'e',3:'r',4:'t',5:'y',6:'u',7:'i',8:'o',9:'p',length:10},
+                '1': {0:'a',1:'s',2:'d',3:'f',4:'g',5:'h',6:'j',7:'k',8:'l',length:9},
+                '2': {0:'z',1:'x',2:'c',3:'v',4:'b',5:'n',6:'m',length:7},
+                'length': 3
+            }
+            var hash = {
+                'q':'qsdwd2e21e1u8u8q.com',
+                'w':'weibo.com',
+                'a':'alibaba.com',
+                'z':'zhihu.com',
+            }
+            //取出localstorage的zzz的hash
+            var hashInLocalStorage = getFromLocalStorage ('zzz')
+            if(hashInLocalStorage){
+                hash = hashInLocalStorage//覆盖
+            }
+            return {
+                "keys":keys,
+                "hash":hash
+            }
+        }
+        function generateKeyboard(kes,hash){
+            for(var index=0; index < keys['length']; index++){
+                var div = tag('div')
+                div.className = 'row'
+
+                main.appendChild(div)
+
+                var row = keys[index]  //第一个 第二个 第三个数组
+                for(var index2 = 0; index2 < row['length']; index2++){
+                    var span = creatSpan(row[index2])
+
+                    var button =createButton(row[index2])
+
+                    var img = createImg(hash[row[index2]])
+
+                    var kbd = tag('kbd')
+                    kbd.className = 'key'
+                    kbd.appendChild(span)
+                    kbd.appendChild(img)
+                    kbd.appendChild(button)
+
+                    div.appendChild(kbd)
+                }
+            }
+        }
+        function listenToUser(hash){
+            document.onkeypress = function(xzkjcnxlkcjlk){
+                // key = xzkjcnxlkcjlk['key']
+                var key = xzkjcnxlkcjlk.key
+                var website = hash[key]
+                console.log(website)
+                // location.href = 'http://' + website   // 当前窗口打开
+                window.open('http://' + website , '_blank')  //窗口打开，在blank打开
+            }
+        }
+    </script>
+</body>
+</html>
+
+
